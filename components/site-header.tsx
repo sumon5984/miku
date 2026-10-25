@@ -1,6 +1,9 @@
+'use client'
+
 import Image from 'next/image'
 import { Heart, Home, Lock } from 'lucide-react'
 import { TelegramIcon } from './brand-icons'
+import { useInteractionSound } from '@/lib/use-interaction-sound'
 
 const NAV_ITEMS = [
   { label: 'Home', href: '#home', icon: Home },
@@ -10,6 +13,8 @@ const NAV_ITEMS = [
 ]
 
 export function SiteHeader() {
+  const playSound = useInteractionSound()
+
   return (
     <header id="home" className="relative z-20 px-3 pt-3 sm:px-5 sm:pt-5">
       <div className="flex items-center justify-between gap-3">
@@ -39,6 +44,7 @@ export function SiteHeader() {
           href="https://t.me/"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => playSound('click')}
           className="animate-glow flex shrink-0 items-center gap-2 rounded-full border-2 border-white bg-gradient-to-b from-[#3cc4ff] to-[#1a8cf0] px-4 py-2 font-display text-sm font-semibold text-white shadow-[0_6px_18px_rgba(26,140,240,0.35)] transition hover:brightness-105 active:scale-95 sm:px-6 sm:py-2.5 sm:text-lg"
         >
           <TelegramIcon className="size-4 sm:size-5" />
@@ -54,6 +60,7 @@ export function SiteHeader() {
               <li key={label} className="flex-1">
                 <a
                   href={href}
+                  onClick={() => playSound('click')}
                   aria-current={active ? 'page' : undefined}
                   className={
                     active

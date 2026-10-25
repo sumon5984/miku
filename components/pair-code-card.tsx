@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from 'react'
 import { ArrowRight, Check, Copy, Heart, Loader2, Lock, Ribbon, Sparkle, Sparkles, Star } from 'lucide-react'
 import { TelegramIcon, WhatsAppIcon } from './brand-icons'
+import { useInteractionSound } from '@/lib/use-interaction-sound'
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
 
@@ -12,6 +13,7 @@ export function PairCodeCard() {
   const [status, setStatus] = useState<Status>('idle')
   const [error, setError] = useState('')
   const [copied, setCopied] = useState(false)
+  const playSound = useInteractionSound()
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -20,6 +22,7 @@ export function PairCodeCard() {
 
     const digits = number.replace(/\D/g, '')
     if (digits.length < 8 || digits.length > 15) {
+      playSound('error')
       setStatus('error')
       setError('Please enter a valid WhatsApp number with country code.')
       return
@@ -36,7 +39,9 @@ export function PairCodeCard() {
       if (!res.ok) throw new Error(data?.error || 'Something went wrong. Please try again.')
       setCode(data.code)
       setStatus('success')
+      playSound('success')
     } catch (err) {
+      playSound('error')
       setStatus('error')
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
     }
@@ -47,8 +52,10 @@ export function PairCodeCard() {
     try {
       await navigator.clipboard.writeText(code)
       setCopied(true)
+      playSound('copy')
       setTimeout(() => setCopied(false), 2000)
     } catch {
+      playSound('error')
       setError('Could not copy. Please copy the code manually.')
     }
   }
