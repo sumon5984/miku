@@ -1,0 +1,342 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@theme inline {
+  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fredoka), var(--font-nunito), sans-serif;
+  --font-script: var(--font-pacifico), cursive;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-miku: var(--miku);
+  --color-miku-deep: var(--miku-deep);
+  --color-lilac: var(--lilac);
+  --color-whatsapp: var(--whatsapp);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+}
+
+:root {
+  color-scheme: light;
+  --background: #e6f5ff;
+  --foreground: #1f3a7a;
+  --card: rgba(255, 255, 255, 0.78);
+  --card-foreground: #1f3a7a;
+  --popover: #ffffff;
+  --popover-foreground: #1f3a7a;
+  --primary: #1a8cf0;
+  --primary-foreground: #ffffff;
+  --secondary: #eaf6ff;
+  --secondary-foreground: #1666c9;
+  --muted: #eef7ff;
+  --muted-foreground: #4a6aa3;
+  --accent: #dff1ff;
+  --accent-foreground: #1666c9;
+  --destructive: #e5484d;
+  --border: #cfe6fb;
+  --input: #cfe6fb;
+  --ring: #3fb5ff;
+  --radius: 0.875rem;
+
+  --miku: #2bb6f5;
+  --miku-deep: #1666c9;
+  --lilac: #8b6cf0;
+  --whatsapp: #25d366;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@utility text-glow {
+  text-shadow:
+    0 2px 0 #ffffff,
+    0 4px 14px rgba(43, 182, 245, 0.35);
+}
+
+@utility glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes drift-up {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(-45vh) translateX(18px) rotate(12deg);
+  }
+  85% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-95vh) translateX(-12px) rotate(-10deg);
+    opacity: 0;
+  }
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(6deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-120%) skewX(-20deg);
+  }
+  60%,
+  100% {
+    transform: translateX(320%) skewX(-20deg);
+  }
+}
+
+  @keyframes glow {
+  0%,
+  100% {
+  box-shadow: 0 8px 24px rgba(26, 140, 240, 0.3);
+  }
+  50% {
+  box-shadow: 0 8px 32px rgba(26, 140, 240, 0.55), 0 0 0 4px rgba(43, 182, 245, 0.15);
+  }
+  }
+  
+  .animate-glow {
+  animation: glow 2.6s ease-in-out infinite;
+  }
+  
+  @keyframes shimmer-sweep {
+  0% {
+  background-position: 150% 0;
+  }
+  60%,
+  100% {
+  background-position: -50% 0;
+  }
+  }
+  
+  @keyframes blur-in {
+  from {
+    opacity: 0;
+    filter: blur(16px);
+    transform: translateY(16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: scale(0.7);
+  }
+  70% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(43, 182, 245, 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 14px rgba(43, 182, 245, 0);
+  }
+}
+
+@keyframes caret {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.25);
+  }
+  30% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.18);
+  }
+}
+
+.animate-floaty {
+  animation: floaty 4s ease-in-out infinite;
+}
+
+.animate-twinkle {
+  animation: twinkle 2.6s ease-in-out infinite;
+}
+
+.animate-drift {
+  animation: drift-up linear infinite;
+}
+
+.animate-sway {
+  animation: sway 3.5s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+.animate-blur-in {
+  animation: blur-in 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.animate-pop-in {
+  animation: pop-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 1.8s ease-out infinite;
+}
+
+.animate-caret {
+  animation: caret 1s steps(1) infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.6s ease-in-out infinite;
+}
+
+.shimmer {
+  position: relative;
+  }
+  
+  .shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.5) 50%, transparent 65%) no-repeat;
+  background-size: 250% 100%;
+  animation: shimmer-sweep 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.reveal {
+  opacity: 0;
+  filter: blur(14px);
+  transform: translateY(28px) scale(0.98);
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    filter 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-floaty,
+  .animate-twinkle,
+  .animate-drift,
+  .animate-sway,
+  .animate-blur-in,
+  .animate-pop-in,
+  .animate-pulse-ring,
+  .animate-caret,
+  .animate-spin-slow,
+  .animate-heartbeat,
+  .shimmer::after {
+    animation: none;
+  }
+  .animate-drift {
+    display: none;
+  }
+  .reveal {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}
